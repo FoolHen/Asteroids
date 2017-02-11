@@ -318,41 +318,78 @@ void Graphics::PutPixel( int x,int y,Color c )
 
 void Graphics::DrawLine(int x0, int y0, int x1, int y1, Color c)
 {
-	
-
-	if (x0 > x1)
-	{
-		std::swap(x0, x1);
-	}
-	if (y0 > y1)
-	{
-		std::swap(y0, y1);
-	}
-
-	float m = (float(y1 - y0)) / float(x1 - x0) ;
-	int y = y0, x = x0;
+	int dx = x1 - x0;
+	int dy = y1 - y0;
 	float s;
 
-	if (x1 > y1) {
-		while (x < x1 && y < y1)
-		{
-			s = float(y - y0 + 1) - m * float(x - x0 + 1);
-			if ( s >= 0.0f) {
-				PutPixel(x, y, c);
-				x++;
-			}
-			else y++;
+	if (dx == 0 && dy == 0)
+	{
+		PutPixel(x0, y0, c);
+	}
+	else if (abs(dy) > abs(dx)) {
+		
+		if (dy < 0.0f) {
+			std::swap(x0, x1);
+			std::swap(y0, y1);
 		}
+		const float m = (float(y1 - y0)) / float(x1 - x0);
+		int y = y0, x = x0;
+
+		if (m< 0.0f)
+		{
+			while (x >= x1 && y <= y1)
+			{
+				s = float(y - y0 + 1) - m * float(x - x0 + 1);
+				if (s <= 0.0f) {
+					PutPixel(x, y, c);
+					y++;
+				}
+				else x--;
+			}
+		}
+		else {
+			while (x <= x1 && y <= y1)
+			{
+				s = float(y - y0 + 1) - m * float(x - x0 + 1);
+				if (s <= 0.0f) {
+					PutPixel(x, y, c);
+					y++;
+				}
+				else x++;
+			}
+		}
+		
 	}
 	else {
-		while (x < x1 && y < y1)
+		if (dx < 0.0f) {
+			std::swap(x0, x1);
+			std::swap(y0, y1);
+		}
+		const float m = (float(y1 - y0)) / float(x1 - x0);
+		int y = y0, x = x0;
+
+		if (m< 0.0f)
 		{
-			s = float(y - y0 + 1) - m * float(x - x0 + 1);
-			if (s <= 0.0f) {
-				PutPixel(x, y, c);
-				y++;
+			while (x <= x1 && y >= y1)
+			{
+				s = float(y - y0 + 1) - m * float(x - x0 + 1);
+				if (s <= 0.0f) {
+					PutPixel(x, y, c);
+					x++;
+				}
+				else y--;
 			}
-			else x++;
+		}
+		else {
+			while (x <= x1 && y <= y1)
+			{
+				s = float(y - y0 + 1) - m * float(x - x0 + 1);
+				if (s >= 0.0f) {
+					PutPixel(x, y, c);
+					x++;
+				}
+				else y++;
+			}
 		}
 	}
 }
