@@ -24,7 +24,8 @@
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
-	gfx( wnd )
+	gfx( wnd ),
+	ship( Vec2( 200.0f, 300.0f))
 {
 }
 
@@ -38,9 +39,17 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	gfx.DrawLine(0 ,0,600, 600, Colors::Green);
 }
 
 void Game::ComposeFrame()
 {
+	ship.Draw(gfx);
+	/*gfx.DrawLine(200,200,300,250, Colors::Blue);
+	gfx.DrawLine(200, 200, 300, 150, Colors::Blue);
+	gfx.DrawLine(200, 200, 250, 100, Colors::Blue);
+	gfx.DrawLine(200, 200, 150, 100, Colors::Blue);
+	gfx.DrawLine(200, 200, 250, 300, Colors::Blue);
+	gfx.DrawLine(200, 200, 150, 300, Colors::Blue);
+	gfx.DrawLine(200, 200, 100, 250, Colors::Blue);
+	gfx.DrawLine(200, 200, 100, 150, Colors::Blue);*/
 }
