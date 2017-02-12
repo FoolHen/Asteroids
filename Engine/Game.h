@@ -24,6 +24,7 @@
 #include "Mouse.h"
 #include "Graphics.h"
 #include "Ship.h"
+#include "FrameTimer.h"
 
 class Game
 {
@@ -42,6 +43,7 @@ private:
 	MainWindow& wnd;
 	Graphics gfx;
 	Ship ship;
+	FrameTimer ft;
 	/********************************/
 	/*  User Variables              */
 	/********************************/

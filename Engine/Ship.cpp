@@ -1,12 +1,74 @@
 #include "Ship.h"
+#include <math.h>
+
+# define M_PI 3.14159
 
 
-Ship::Ship(Vec2 in_pos)
+Ship::Ship(const Vec2& in_pos, const Vec2& in_vel, const Vec2& in_acc)
+	:
+	pos(in_pos),
+	vel(in_vel),
+	acc(in_acc)
+
 {
-	pos = in_pos;
 }
 
 void Ship::Draw(Graphics& gfx) const
 {
-	gfx.DrawTriangle( int(pos.x), int(pos.y - 10), int(pos.x + 10), int(pos.y + 10), int(pos.x -10), int(pos.y + 10), color);
+	gfx.DrawTriangle( int(pos.x + 30*cosf(rotation)), int(pos.y - 30*sinf(rotation) ),
+		int(pos.x + 30 * cosf(rotation + 0.75f*M_PI)), int(pos.y - 30 * sinf(rotation + 0.75f*M_PI)),
+		int(pos.x + 30 * cosf(rotation + 1.25f*M_PI)), int(pos.y - 30 * sinf(rotation + 1.25f*M_PI)),
+		color);
 }
+
+void Ship::setAcc(Vec2 vec)
+{
+	acc.x = vec.x;
+	acc.y = vec.y;
+}
+
+void Ship::setVel(Vec2 vec)
+{
+	vel.x = vec.x;
+	vel.y = vec.y;
+}
+
+void Ship::setPos(Vec2 vec)
+{
+	pos.x = vec.x;
+	pos.y = vec.y;
+}
+
+Vec2 Ship::getAcc() const
+{
+	return acc;
+}
+
+Vec2 Ship::getVel() const
+{
+	return vel;
+}
+
+Vec2 Ship::getPos() const
+{
+	return pos;
+}
+
+void Ship::Update(float dt)
+{
+	vel += acc*dt;
+	pos += vel*dt;
+
+}
+
+void Ship::Rotate(const float & angle)
+{
+	rotation += angle;
+	if (rotation < 0.0f) {
+		rotation += 2 * M_PI;
+	}
+	else if (rotation >= 2 * M_PI) {
+		rotation -= 2 * M_PI;
+	}
+}
+
