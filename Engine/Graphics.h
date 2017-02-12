@@ -56,16 +56,16 @@ public:
 		PutPixel( x,y,{ unsigned char( r ),unsigned char( g ),unsigned char( b ) } );
 	}
 	void PutPixel( int x,int y,Color c );
-	void DrawLine(int x0, int y0, int x1, int y1, Color c);
-	void DrawLineDim(int x0, int y0, int dx, int dy, Color c) {
+	void DrawLine(float x1, float y1, float x2, float y2, Color c);
+	/*void DrawLineDim(int x0, int y0, int dx, int dy, Color c) {
 		DrawLine(x0, y0, x0 + dx, y0 + dy, c);
-	}
+	}*/
 	void DrawRect( int x0, int y0, int x1, int y1, Color c );
 	void DrawRectDim( int x0,int y0,int width,int height,Color c )
 	{
 		DrawRect( x0,y0,x0 + width,y0 + height,c );
 	}
-	void DrawTriangle(int x0, int y0, int x1, int y1, int x2, int y2, Color c);
+	void DrawTriangle(float x0, float y0, float x1, float y1, float x2, float y2, Color c);
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;

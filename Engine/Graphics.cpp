@@ -316,80 +316,55 @@ void Graphics::PutPixel( int x,int y,Color c )
 	pSysBuffer[Graphics::ScreenWidth * y + x] = c;
 }
 
-void Graphics::DrawLine(int x0, int y0, int x1, int y1, Color c)
+void Graphics::DrawLine( float x1,float y1,float x2,float y2,Color c )
 {
-	int dx = x1 - x0;
-	int dy = y1 - y0;
-	float s;
+	const float dx = x2 - x1;
+	const float dy = y2 - y1;
 
-	if (dx == 0 && dy == 0)
+	if( dy == 0.0f && dx == 0.0f )
 	{
-		PutPixel(x0, y0, c);
+		PutPixel( int( x1 ),int( y1 ),c );
 	}
-	else if (abs(dy) > abs(dx)) {
-		
-		if (dy < 0.0f) {
-			std::swap(x0, x1);
-			std::swap(y0, y1);
-		}
-		const float m = (float(y1 - y0)) / float(x1 - x0);
-		int y = y0, x = x0;
-
-		if (m< 0.0f)
+	else if( abs( dy ) > abs( dx ) )
+	{
+		if( dy < 0.0f )
 		{
-			while (x >= x1 && y <= y1)
-			{
-				s = float(y - y0 + 1) - m * float(x - x0 + 1);
-				if (s <= 0.0f) {
-					PutPixel(x, y, c);
-					y++;
-				}
-				else x--;
-			}
+			std::swap( x1,x2 );
+			std::swap( y1,y2 );
 		}
-		else {
-			while (x <= x1 && y <= y1)
-			{
-				s = float(y - y0 + 1) - m * float(x - x0 + 1);
-				if (s <= 0.0f) {
-					PutPixel(x, y, c);
-					y++;
-				}
-				else x++;
-			}
+
+		const float m = dx / dy;
+		float y = y1;
+		int lastIntY;
+		for( float x = x1; y < y2; y += 1.0f,x += m )
+		{
+			lastIntY = int( y );
+			PutPixel( int( x ),lastIntY,c );
 		}
-		
+		if( int( y2 ) > lastIntY )
+		{
+			PutPixel( int( x2 ),int( y2 ),c );
+		}
 	}
-	else {
-		if (dx < 0.0f) {
-			std::swap(x0, x1);
-			std::swap(y0, y1);
-		}
-		const float m = (float(y1 - y0)) / float(x1 - x0);
-		int y = y0, x = x0;
-
-		if (m< 0.0f)
+	else
+	{
+		if( dx < 0.0f )
 		{
-			while (x <= x1 && y >= y1)
-			{
-				s = float(y - y0 + 1) - m * float(x - x0 + 1);
-				if (s <= 0.0f) {
-					PutPixel(x, y, c);
-					x++;
-				}
-				else y--;
-			}
+			std::swap( x1,x2 );
+			std::swap( y1,y2 );
 		}
-		else {
-			while (x <= x1 && y <= y1)
-			{
-				s = float(y - y0 + 1) - m * float(x - x0 + 1);
-				if (s >= 0.0f) {
-					PutPixel(x, y, c);
-					x++;
-				}
-				else y++;
-			}
+
+		const float m = dy / dx;
+		float x = x1;
+		int lastIntX;
+		for( float y = y1; x < x2; x += 1.0f,y += m )
+		{
+			lastIntX = int( x );
+			PutPixel( lastIntX,int( y ),c );
+		}
+		if( int( x2 ) > lastIntX )
+		{
+			PutPixel( int( x2 ),int( y2 ),c );
 		}
 	}
 }
@@ -414,7 +389,7 @@ void Graphics::DrawRect( int x0,int y0,int x1,int y1,Color c )
 	}
 }
 
-void Graphics::DrawTriangle(int x0, int y0, int x1, int y1, int x2, int y2, Color c)
+void Graphics::DrawTriangle(float x0, float y0, float x1, float y1, float x2, float y2, Color c)
 {
 	DrawLine(x0, y0, x1, y1, c);
 	DrawLine(x0, y0, x2, y2, c);
