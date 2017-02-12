@@ -15,9 +15,9 @@ Ship::Ship(const Vec2& in_pos, const Vec2& in_vel, const Vec2& in_acc)
 
 void Ship::Draw(Graphics& gfx) const
 {
-	gfx.DrawTriangle( int(pos.x + 30*cosf(rotation)), int(pos.y - 30*sinf(rotation) ),
-		int(pos.x + 30 * cosf(rotation + 0.75f*M_PI)), int(pos.y - 30 * sinf(rotation + 0.75f*M_PI)),
-		int(pos.x + 30 * cosf(rotation + 1.25f*M_PI)), int(pos.y - 30 * sinf(rotation + 1.25f*M_PI)),
+	gfx.DrawTriangle( int(pos.x + 30.0f*cosf(rotation)), int(pos.y - 30.0f*sinf(rotation) ),
+		int(pos.x + 30.0f * cosf(rotation + 0.75f*M_PI)), int(pos.y - 30.0f * sinf(rotation + 0.75f*M_PI)),
+		int(pos.x + 30.0f * cosf(rotation + 1.25f*M_PI)), int(pos.y - 30.0f * sinf(rotation + 1.25f*M_PI)),
 		color);
 }
 

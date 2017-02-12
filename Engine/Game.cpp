@@ -39,7 +39,10 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	
+	ship.setAcc(Vec2(0.0f, 0.0f));
+	if (wnd.kbd.KeyIsPressed(VK_UP)) {
+		ship.setAcc(Vec2(30.0f, 0.0f));
+	}
 	if (wnd.kbd.KeyIsPressed(VK_RIGHT)) {
 		ship.Rotate(0.1f);
 	}
