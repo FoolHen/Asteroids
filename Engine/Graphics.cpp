@@ -405,6 +405,21 @@ void Graphics::DrawTriangle(float x0, float y0, float x1, float y1, float x2, fl
 	DrawLine(x1, y1, x2, y2, c);
 }
 
+void Graphics::DrawCircle(int x, int y, int r, Color c)
+{
+	int sqr_r = r*r;
+	for (int j = -r; j < r; ++j)
+	{
+		for (int i = -r; i < r; ++i)
+		{
+			if ((i*i + (j + 1)*(j + 1)) < sqr_r)
+			{
+				PutPixel(x + i + r, y + j + r, c);
+			}
+		}
+	}
+}
+
 
 //////////////////////////////////////////////////
 //           Graphics Exception

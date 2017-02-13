@@ -24,6 +24,7 @@
 #include "Mouse.h"
 #include "Graphics.h"
 #include "Ship.h"
+#include "Asteroid.h"
 #include "FrameTimer.h"
 
 class Game
@@ -44,7 +45,9 @@ private:
 	Graphics gfx;
 	Ship ship;
 	FrameTimer ft;
+	Asteroid asteroid;
 	/********************************/
 	/*  User Variables              */
 	/********************************/
+
 };

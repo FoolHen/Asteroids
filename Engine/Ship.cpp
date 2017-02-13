@@ -27,33 +27,6 @@ void Ship::setAcc(Vec2 vec)
 	acc.y = vec.y;
 }
 
-void Ship::setVel(Vec2 vec)
-{
-	vel.x = vec.x;
-	vel.y = vec.y;
-}
-
-void Ship::setPos(Vec2 vec)
-{
-	pos.x = vec.x;
-	pos.y = vec.y;
-}
-
-Vec2 Ship::getAcc() const
-{
-	return acc;
-}
-
-Vec2 Ship::getVel() const
-{
-	return vel;
-}
-
-Vec2 Ship::getPos() const
-{
-	return pos;
-}
-
 void Ship::Accelerate()
 {
 	acc += Vec2( 300.0f * cosf(rotation), -300.0f * sinf(rotation) );

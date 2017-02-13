@@ -67,6 +67,7 @@ public:
 	}
 	void DrawTriangle(float x0, float y0, float x1, float y1, float x2, float y2, Color c);
 	~Graphics();
+	void Graphics::DrawCircle(int x, int y, int r, Color c);
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;
 	Microsoft::WRL::ComPtr<ID3D11Device>				pDevice;
