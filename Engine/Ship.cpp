@@ -66,20 +66,20 @@ void Ship::Update(float dt, const Graphics& gfx)
 {
 	vel += acc*dt;
 	pos += vel*dt;
-	int width = gfx.ScreenWidth;
-	int height = gfx.ScreenHeight;
-	/*if (pos.x < 0) {
-		pos.x = width - pos.x;
+	float width = gfx.ScreenWidth;
+	float height = gfx.ScreenHeight;
+	if (pos.x < 0.0f) {
+		pos.x = width - 1.0f + pos.x;
 	}
-	else if (pos.x >= height) {
-		pos.x -= height;
+	else if (pos.x >= width) {
+		pos.x -= width;
 	}
-	if (pos.y < 0) {
-		pos.y = height - pos.y;
+	if (pos.y < 0.0f) {
+		pos.y = height - 1.0f + pos.y;
 	}
 	else if (pos.y >= height) {
 		pos.y -= height;
-	}*/
+	}
 }
 
 void Ship::Rotate(const float & angle)
