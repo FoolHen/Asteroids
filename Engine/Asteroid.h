@@ -8,8 +8,8 @@ class Asteroid
 {
 public:
 	Asteroid() = default;
-	Asteroid(std::mt19937& rng, const Graphics& gfx);
-	void Spawn(std::mt19937& rng, const Graphics& gfx);
+	//Asteroid(std::mt19937& rng, const Graphics& gfx);
+	void Spawn(std::mt19937& rng, const Graphics& gfx, const Vec2& inpos, const Vec2& invel);
 	void Draw(Graphics& gfx) const;
 	void Update(float dt, const Graphics& gfx);
 	void Rotate();

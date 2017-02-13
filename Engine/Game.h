@@ -41,7 +41,7 @@ private:
 	/*  User Functions              */
 	/********************************/
 private:
-	static constexpr int nAsteroids = 10;
+	static constexpr int nAsteroids = 1;
 	MainWindow& wnd;
 	Graphics gfx;
 	Ship ship;

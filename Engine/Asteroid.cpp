@@ -3,29 +3,7 @@
 
 # define M_PI 3.14159f
 
-Asteroid::Asteroid( std::mt19937& rng, const Graphics& gfx)
-{
-	std::uniform_int_distribution<int> rDist(10, 25);
-	std::uniform_int_distribution<int> xDist(0, gfx.ScreenWidth-1);
-	std::uniform_int_distribution<int> yDist(0, gfx.ScreenHeight - 1);
-	std::uniform_int_distribution<int> vxDist(0, 50);
-	std::uniform_int_distribution<int> vyDist(0, 50);
-	std::uniform_real_distribution<float> rotationDist(-0.05f, 0.00f);
-	do {
-		pos.x = float(xDist(rng));
-		pos.y = float(yDist(rng));
-	} while (true);//TODO COLLISION
-	
-	vel.x = float(vxDist(rng));
-	vel.x = float(vxDist(rng));
-	rotationRate = rotationDist(rng);
-	for (int i = 0; i < nPoints; i++) {
-		points[i] = rDist(rng);
-	}
-
-}
-
-void Asteroid::Spawn(std::mt19937 & rng, const Graphics & gfx)
+/*Asteroid::Asteroid(std::mt19937& rng, const Graphics& gfx)
 {
 	std::uniform_int_distribution<int> rDist(10, 25);
 	std::uniform_int_distribution<int> xDist(0, gfx.ScreenWidth - 1);
@@ -40,6 +18,34 @@ void Asteroid::Spawn(std::mt19937 & rng, const Graphics & gfx)
 
 	vel.x = float(vxDist(rng));
 	vel.x = float(vxDist(rng));
+	rotationRate = rotationDist(rng);
+	for (int i = 0; i < nPoints; i++) {
+		points[i] = rDist(rng);
+	}
+
+}*/
+
+void Asteroid::Spawn(std::mt19937 & rng, const Graphics & gfx, const Vec2& inpos, const Vec2& invel)
+	
+{
+	std::uniform_int_distribution<int> rDist(10, 25);
+	std::uniform_real_distribution<float> rotationDist(-0.05f, 0.05f);
+	vel.x = invel.x;
+	vel.y = invel.y;
+	pos.x = inpos.x;
+	pos.y = inpos.y;
+	/*std::uniform_int_distribution<int> xDist(0, gfx.ScreenWidth - 1);
+	std::uniform_int_distribution<int> yDist(0, gfx.ScreenHeight - 1);
+	std::uniform_int_distribution<int> vxDist(0, 50);
+	std::uniform_int_distribution<int> vyDist(0, 50);
+	
+	do {
+		pos.x = float(xDist(rng));
+		pos.y = float(yDist(rng));
+	} while (false);//TODO COLLISION
+
+	vel.x = float(vxDist(rng));
+	vel.x = float(vyDist(rng));*/
 	rotationRate = rotationDist(rng);
 	for (int i = 0; i < nPoints; i++) {
 		points[i] = rDist(rng);
