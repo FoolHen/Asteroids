@@ -22,6 +22,14 @@ void Ship::Draw(Graphics& gfx) const
 }
 
 
+void Ship::DrawPropulsion(Graphics & gfx) const
+{
+	gfx.DrawLine(pos.x + (size - 2.0f) * cosf(rotation + 0.8f*M_PI), pos.y - (size - 2.0f) * sinf(rotation + 0.8f*M_PI),
+		pos.x + (size + 13.0f) * cosf(rotation + 0.9f*M_PI), pos.y - (size + 13.0f) * sinf(rotation + 0.9f*M_PI), propColor);
+	gfx.DrawLine(pos.x + (size - 2.0f) * cosf(rotation + 1.2f*M_PI), pos.y - (size - 2.0f) * sinf(rotation + 1.2f*M_PI),
+		pos.x + (size + 13.0f) * cosf(rotation + 1.1f*M_PI), pos.y - (size + 13.0f) * sinf(rotation + 1.1f*M_PI), propColor);
+}
+
 void Ship::setAcc(Vec2 vec)
 {
 	acc.x = vec.x;

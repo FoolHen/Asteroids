@@ -8,7 +8,8 @@ class Ship
 public:
 	Ship() = default;
 	Ship(const Vec2& in_pos, const Vec2& in_vel, const Vec2& in_acc);
-	void Draw( Graphics& gfx) const;
+	void Draw(Graphics& gfx) const;
+	void DrawPropulsion(Graphics& gfx) const;
 	void setAcc(Vec2 vec);
 	void Accelerate();
 	void Friction();
@@ -16,6 +17,7 @@ public:
 	void Rotate(const float& angle);
 private:
 	const Color color = Colors::Cyan;
+	const Color propColor = Colors::Red;
 	float rotation = 0.0f;
 	Vec2 pos;
 	Vec2 vel;

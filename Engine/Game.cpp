@@ -48,6 +48,7 @@ void Game::UpdateModel()
 	ship.Friction();
 	if (wnd.kbd.KeyIsPressed(VK_UP)) {
 		ship.Accelerate();
+		ship.DrawPropulsion(gfx);
 	}
 	if (wnd.kbd.KeyIsPressed(VK_RIGHT)) {
 		ship.Rotate(-0.1f);
@@ -74,6 +75,7 @@ void Game::ComposeFrame()
 
 		if (asteroids[i].GetDestroyed() == false) {
 			asteroids[i].Draw(gfx);
+
 		}
 		
 	}
