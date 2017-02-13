@@ -339,6 +339,7 @@ void Graphics::DrawLine( float x1,float y1,float x2,float y2,Color c )
 		for( float x = x1; y < y2; y += 1.0f,x += m )
 		{
 			lastIntY = int( y );
+
 			PutPixel( int( x ),lastIntY,c );
 		}
 		if( int( y2 ) > lastIntY )

@@ -1,7 +1,7 @@
 #include "Ship.h"
 #include <math.h>
 
-# define M_PI 3.14159
+# define M_PI 3.14159f
 
 
 Ship::Ship(const Vec2& in_pos, const Vec2& in_vel, const Vec2& in_acc)
@@ -15,9 +15,9 @@ Ship::Ship(const Vec2& in_pos, const Vec2& in_vel, const Vec2& in_acc)
 
 void Ship::Draw(Graphics& gfx) const
 {
-	gfx.DrawTriangle( pos.x + 30.0f*cosf(rotation), pos.y - 30.0f*sinf(rotation),
-		pos.x + 30.0f * cosf(rotation + 0.75f*M_PI), pos.y - 30.0f * sinf(rotation + 0.75f*M_PI),
-		pos.x + 30.0f * cosf(rotation + 1.25f*M_PI), pos.y - 30.0f * sinf(rotation + 1.25f*M_PI),
+	gfx.DrawTriangle( pos.x + size*cosf(rotation), pos.y - size*sinf(rotation),
+		pos.x + size * cosf(rotation + 0.75f*M_PI), pos.y - size * sinf(rotation + 0.75f*M_PI),
+		pos.x + size * cosf(rotation + 1.25f*M_PI), pos.y - size * sinf(rotation + 1.25f*M_PI),
 		color);
 }
 
@@ -54,11 +54,32 @@ Vec2 Ship::getPos() const
 	return pos;
 }
 
-void Ship::Update(float dt)
+void Ship::Accelerate()
+{
+	acc += Vec2( 300.0f * cosf(rotation), -300.0f * sinf(rotation) );
+}
+void Ship::Friction()
+{
+	vel *= 0.99f;
+}
+void Ship::Update(float dt, const Graphics& gfx)
 {
 	vel += acc*dt;
 	pos += vel*dt;
-
+	int width = gfx.ScreenWidth;
+	int height = gfx.ScreenHeight;
+	/*if (pos.x < 0) {
+		pos.x = width - pos.x;
+	}
+	else if (pos.x >= height) {
+		pos.x -= height;
+	}
+	if (pos.y < 0) {
+		pos.y = height - pos.y;
+	}
+	else if (pos.y >= height) {
+		pos.y -= height;
+	}*/
 }
 
 void Ship::Rotate(const float & angle)

@@ -16,7 +16,9 @@ public:
 	Vec2 getAcc() const;
 	Vec2 getVel() const;
 	Vec2 getPos() const;
-	void Update(float dt);
+	void Accelerate();
+	void Friction();
+	void Update(float dt, const Graphics& gfx);
 	void Rotate(const float& angle);
 private:
 	const Color color = Colors::White;
@@ -24,5 +26,6 @@ private:
 	Vec2 pos;
 	Vec2 vel;
 	Vec2 acc;
+	float size = 20.0f;
 };
 

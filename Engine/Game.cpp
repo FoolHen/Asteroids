@@ -40,18 +40,19 @@ void Game::Go()
 void Game::UpdateModel()
 {
 	ship.setAcc(Vec2(0.0f, 0.0f));
+	ship.Friction();
 	if (wnd.kbd.KeyIsPressed(VK_UP)) {
-		ship.setAcc(Vec2(30.0f, 0.0f));
+		ship.Accelerate();
 	}
 	if (wnd.kbd.KeyIsPressed(VK_RIGHT)) {
-		ship.Rotate(0.1f);
+		ship.Rotate(-0.1f);
 	}
 	else if (wnd.kbd.KeyIsPressed(VK_LEFT)) {
-		ship.Rotate(-0.1f);
+		ship.Rotate(0.1f);
 	}
 	
 	const float dt = ft.Mark();
-	ship.Update( dt );
+	ship.Update( dt, gfx );
 }
 
 void Game::ComposeFrame()
