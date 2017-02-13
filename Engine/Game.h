@@ -41,11 +41,13 @@ private:
 	/*  User Functions              */
 	/********************************/
 private:
+	static constexpr int nAsteroids = 10;
 	MainWindow& wnd;
 	Graphics gfx;
 	Ship ship;
 	FrameTimer ft;
-	Asteroid asteroid;
+	Asteroid asteroids[nAsteroids];
+	std::mt19937 rng;
 	/********************************/
 	/*  User Variables              */
 	/********************************/

@@ -3,12 +3,44 @@
 
 # define M_PI 3.14159f
 
-Asteroid::Asteroid(const Vec2 & in_pos, const Vec2 & in_vel)
-	:
-	pos(in_pos),
-	vel(in_vel)
+Asteroid::Asteroid( std::mt19937& rng, const Graphics& gfx)
 {
 	std::uniform_int_distribution<int> rDist(10, 25);
+	std::uniform_int_distribution<int> xDist(0, gfx.ScreenWidth-1);
+	std::uniform_int_distribution<int> yDist(0, gfx.ScreenHeight - 1);
+	std::uniform_int_distribution<int> vxDist(0, 50);
+	std::uniform_int_distribution<int> vyDist(0, 50);
+	std::uniform_real_distribution<float> rotationDist(-0.05f, 0.00f);
+	do {
+		pos.x = float(xDist(rng));
+		pos.y = float(yDist(rng));
+	} while (true);//TODO COLLISION
+	
+	vel.x = float(vxDist(rng));
+	vel.x = float(vxDist(rng));
+	rotationRate = rotationDist(rng);
+	for (int i = 0; i < nPoints; i++) {
+		points[i] = rDist(rng);
+	}
+
+}
+
+void Asteroid::Spawn(std::mt19937 & rng, const Graphics & gfx)
+{
+	std::uniform_int_distribution<int> rDist(10, 25);
+	std::uniform_int_distribution<int> xDist(0, gfx.ScreenWidth - 1);
+	std::uniform_int_distribution<int> yDist(0, gfx.ScreenHeight - 1);
+	std::uniform_int_distribution<int> vxDist(0, 50);
+	std::uniform_int_distribution<int> vyDist(0, 50);
+	std::uniform_real_distribution<float> rotationDist(-0.05f, 0.00f);
+	do {
+		pos.x = float(xDist(rng));
+		pos.y = float(yDist(rng));
+	} while (true);//TODO COLLISION
+
+	vel.x = float(vxDist(rng));
+	vel.x = float(vxDist(rng));
+	rotationRate = rotationDist(rng);
 	for (int i = 0; i < nPoints; i++) {
 		points[i] = rDist(rng);
 	}
@@ -48,7 +80,7 @@ void Asteroid::Update(float dt, const Graphics & gfx)
 
 void Asteroid::Rotate()
 {
-	rotation += 0.05f;
+	rotation += rotationRate;
 	if (rotation < 0.0f) {
 		rotation += 2 * M_PI;
 	}

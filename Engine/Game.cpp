@@ -25,9 +25,13 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	ship( Vec2( 200.0f, 300.0f), Vec2(0.0f,0.0f),Vec2(0.0f,0.0f)),
-	asteroid( Vec2(100.0f, 100.0f), Vec2(30.0f, 60.0f))
+	ship( Vec2( 200.0f, 300.0f), Vec2(0.0f,0.0f),Vec2(0.0f,0.0f))
+	
 {
+	for (int i = 0; i < nAsteroids ; i++)
+	{
+		//asteroids[i] = new Asteroid::Spawn(rng, gfx);
+	}
 }
 
 void Game::Go()
@@ -53,14 +57,14 @@ void Game::UpdateModel()
 	}
 	
 	const float dt = ft.Mark();
-	asteroid.Update(dt, gfx);
-	asteroid.Rotate();
+	//asteroid.Update(dt, gfx);
+	//asteroid.Rotate();
 	ship.Update( dt, gfx );
 	
 }
 
 void Game::ComposeFrame()
 {
-	asteroid.Draw(gfx);
+	//asteroid.Draw(gfx);
 	ship.Draw(gfx);	
 }
