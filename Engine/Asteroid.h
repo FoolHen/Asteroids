@@ -13,14 +13,17 @@ public:
 	void Draw(Graphics& gfx) const;
 	void Update(float dt, const Graphics& gfx);
 	void Rotate();
+	bool GetDestroyed() const;
 private:
-	static constexpr int nPoints = 6;
-	int points[6];
+	static constexpr int maxVertex = 12;
 	const Color color = Colors::White;
+
+	int nVertex = 6;
+	int distances[maxVertex];
+	
 	float rotation = 0.0f;
 	float rotationRate = 0.0f;
 	Vec2 pos;
 	Vec2 vel;
-	float size = 20.0f;
 	bool isDestroyed = false;
 };

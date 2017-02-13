@@ -21,6 +21,7 @@ void Ship::Draw(Graphics& gfx) const
 		color);
 }
 
+
 void Ship::setAcc(Vec2 vec)
 {
 	acc.x = vec.x;

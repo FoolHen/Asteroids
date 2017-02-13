@@ -15,7 +15,7 @@ public:
 	void Update(float dt, const Graphics& gfx);
 	void Rotate(const float& angle);
 private:
-	const Color color = Colors::White;
+	const Color color = Colors::Cyan;
 	float rotation = 0.0f;
 	Vec2 pos;
 	Vec2 vel;

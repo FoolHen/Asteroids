@@ -58,8 +58,11 @@ void Game::UpdateModel()
 	
 	const float dt = ft.Mark();
 	for (int i = 0; i < nAsteroids; i++) {
-		asteroids[i].Update(dt, gfx);
-		asteroids[i].Rotate();
+		if (asteroids[i].GetDestroyed() == false) {
+			asteroids[i].Update(dt, gfx);
+			asteroids[i].Rotate();
+		}
+		
 	}
 	ship.Update( dt, gfx );
 	
@@ -68,7 +71,11 @@ void Game::UpdateModel()
 void Game::ComposeFrame()
 {
 	for (int i = 0; i < nAsteroids; i++) {
-		asteroids[i].Draw(gfx);
+
+		if (asteroids[i].GetDestroyed() == false) {
+			asteroids[i].Draw(gfx);
+		}
+		
 	}
 	ship.Draw(gfx);	
 }
