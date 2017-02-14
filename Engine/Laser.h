@@ -15,7 +15,7 @@ public:
 	void setIsUsed(bool in_isUsed);
 	Vec2 getPos() const;
 private:
-	const Color color = Colors::Blue;
+	const Color color = Colors::White;
 	Vec2 pos;
 	Vec2 vel;
 	bool isUsed = false;

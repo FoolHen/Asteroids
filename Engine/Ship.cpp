@@ -14,7 +14,7 @@ Ship::Ship(const Vec2& in_pos, const Vec2& in_vel, const Vec2& in_acc)
 
 void Ship::Draw(Graphics& gfx) const
 {
-	gfx.PutPixel(int(pos.x), int(pos.y), Colors::Magenta);
+	//gfx.PutPixel(int(pos.x), int(pos.y), Colors::Magenta);
 	gfx.DrawTriangle( pos.x + size*cosf(rotation), pos.y - size*sinf(rotation),
 		pos.x + size * cosf(rotation + 0.75f*M_PI), pos.y - size * sinf(rotation + 0.75f*M_PI),
 		pos.x + size * cosf(rotation + 1.25f*M_PI), pos.y - size * sinf(rotation + 1.25f*M_PI),
@@ -25,9 +25,9 @@ void Ship::Draw(Graphics& gfx) const
 void Ship::DrawPropulsion(Graphics & gfx) const
 {
 	gfx.DrawLine(pos.x + (size - 2.0f) * cosf(rotation + 0.8f*M_PI), pos.y - (size - 2.0f) * sinf(rotation + 0.8f*M_PI),
-		pos.x + (size + 13.0f) * cosf(rotation + 0.9f*M_PI), pos.y - (size + 13.0f) * sinf(rotation + 0.9f*M_PI), propColor);
+		pos.x + (size + 8.0f) * cosf(rotation + 0.92f*M_PI), pos.y - (size + 8.0f) * sinf(rotation + 0.92f*M_PI), propColor);
 	gfx.DrawLine(pos.x + (size - 2.0f) * cosf(rotation + 1.2f*M_PI), pos.y - (size - 2.0f) * sinf(rotation + 1.2f*M_PI),
-		pos.x + (size + 13.0f) * cosf(rotation + 1.1f*M_PI), pos.y - (size + 13.0f) * sinf(rotation + 1.1f*M_PI), propColor);
+		pos.x + (size + 8.0f) * cosf(rotation + 1.08f*M_PI), pos.y - (size + 8.0f) * sinf(rotation + 1.08f*M_PI), propColor);
 }
 
 void Ship::Reset(const Vec2 & in_pos, const Vec2 & in_vel, const Vec2 & in_acc)
