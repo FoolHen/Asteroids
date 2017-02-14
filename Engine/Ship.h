@@ -11,6 +11,7 @@ public:
 	void Draw(Graphics& gfx) const;
 	void DrawPropulsion(Graphics& gfx) const;
 	void setAcc(Vec2 vec);
+	Vec2 getPos() const;
 	void Accelerate();
 	void Friction();
 	void Update(float dt, const Graphics& gfx);

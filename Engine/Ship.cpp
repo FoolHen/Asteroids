@@ -14,6 +14,7 @@ Ship::Ship(const Vec2& in_pos, const Vec2& in_vel, const Vec2& in_acc)
 
 void Ship::Draw(Graphics& gfx) const
 {
+	gfx.PutPixel(int(pos.x), int(pos.y), Colors::Magenta);
 	gfx.DrawTriangle( pos.x + size*cosf(rotation), pos.y - size*sinf(rotation),
 		pos.x + size * cosf(rotation + 0.75f*M_PI), pos.y - size * sinf(rotation + 0.75f*M_PI),
 		pos.x + size * cosf(rotation + 1.25f*M_PI), pos.y - size * sinf(rotation + 1.25f*M_PI),
@@ -33,6 +34,11 @@ void Ship::setAcc(Vec2 vec)
 {
 	acc.x = vec.x;
 	acc.y = vec.y;
+}
+
+Vec2 Ship::getPos() const
+{
+	return pos;
 }
 
 void Ship::Accelerate()

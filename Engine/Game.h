@@ -41,7 +41,7 @@ private:
 	/*  User Functions              */
 	/********************************/
 private:
-	static constexpr int nAsteroids = 15;
+	static constexpr int nAsteroids = 10;
 	MainWindow& wnd;
 	Graphics gfx;
 	Ship ship;
@@ -49,6 +49,7 @@ private:
 	Asteroid asteroids[nAsteroids];
 	std::mt19937 rng;
 	bool isShipAcc = false;
+	bool gameOver = false;
 	/********************************/
 	/*  User Variables              */
 	/********************************/

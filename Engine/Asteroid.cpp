@@ -3,7 +3,9 @@
 
 # define M_PI 3.14159f
 
-void Asteroid::Spawn(std::mt19937 & rng, const Graphics & gfx, const Vec2& inpos, const Vec2& invel)
+
+
+void Asteroid::Spawn(std::mt19937 & rng, const Graphics & gfx, const Ship& ship)
 	
 {
 	pos = Vec2(0.0f, 0.0f);
@@ -15,7 +17,9 @@ void Asteroid::Spawn(std::mt19937 & rng, const Graphics & gfx, const Vec2& inpos
 	std::uniform_int_distribution<int> distanceDist(10, 25);
 	for (int i = 0; i < nVertex; i++) {
 		distances[i] = distanceDist(rng);
+		averageDistance += distances[i];
 	}
+	averageDistance = averageDistance / float(nVertex);
 
 	std::uniform_real_distribution<float> rotationDist(-0.05f, 0.05f);
 	rotationRate = rotationDist(rng);
@@ -29,17 +33,18 @@ void Asteroid::Spawn(std::mt19937 & rng, const Graphics & gfx, const Vec2& inpos
 	do {
 		pos.x = float(xDist(rng));
 		pos.y = float(yDist(rng));
-	} while (false);//TODO COLLISION
+	} while (checkShipCollision(ship));
 
 	vel.x = float(vxDist(rng));
 	vel.y = float(vyDist(rng));
-	
+
 }
 
 void Asteroid::Draw(Graphics & gfx) const
 {
 
-	//gfx.DrawCircle( int(pos.x), int(pos.y), 1 ,Colors::Magenta);
+	gfx.PutPixel(int(pos.x), int(pos.y), Colors::Magenta);
+
 	const float c = 2 * M_PI / float(nVertex);
 	int i;
 	for (i = 1; i < nVertex; ++i)
@@ -81,6 +86,19 @@ void Asteroid::Rotate()
 	else if (rotation >= 2 * M_PI) {
 		rotation -= 2 * M_PI;
 	}
+}
+
+bool Asteroid::checkShipCollision(const Ship& ship)
+{
+	bool collision = false;
+	const Vec2 ship_pos = ship.getPos();
+	const float dist_sqr_x = abs( (pos.x - ship_pos.x) * (pos.x - ship_pos.x) );
+	const float dist_sqr_y = abs( (pos.y - ship_pos.y) * (pos.y - ship_pos.y) );
+	if ( dist_sqr_x + dist_sqr_y < (15.0f + averageDistance) * (15.0f + averageDistance))
+	{
+		collision = true;
+	}
+	return collision;
 }
 
 bool Asteroid::GetDestroyed() const
