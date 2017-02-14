@@ -43,39 +43,48 @@ void Game::UpdateModel()
 {
 	if (!gameOver)
 	{
-		if (wnd.kbd.KeyIsPressed(VK_UP)) {
+		if (wnd.kbd.KeyIsPressed(VK_UP)) 
+		{
 			ship.Accelerate();
 			isShipAcc = true;
 		}
-		else {
+		else 
+		{
 			ship.setAcc(Vec2(0.0f, 0.0f));
 			isShipAcc = false;
 			ship.Friction();
 		}
-		if (wnd.kbd.KeyIsPressed(VK_RIGHT)) {
+		if (wnd.kbd.KeyIsPressed(VK_RIGHT)) 
+		{
 			ship.Rotate(-0.1f);
 		}
-		else if (wnd.kbd.KeyIsPressed(VK_LEFT)) {
+		else if (wnd.kbd.KeyIsPressed(VK_LEFT)) 
+		{
 			ship.Rotate(0.1f);
 		}
-		if (wnd.kbd.KeyIsPressed(VK_SPACE)) {
-		
-			for (int i = 0; i < nLasers; i++)
+		if (wnd.kbd.KeyIsPressed(VK_SPACE)) 
+		{
+			if (spaceBarCooldown.HasTimePassed(0.1f))
 			{
-				if ( !lasers[i].getIsUsed())
+				spaceBarCooldown.Mark();
+				for (int i = 0; i < nLasers; i++)
 				{
-					lasers[i].Spawn(ship.getPos(), Vec2(100.0f * cosf(ship.getRotation()), -100.0f * sinf(ship.getRotation())));
-					break;
+					if (!lasers[i].getIsUsed())
+					{
+						lasers[i].Spawn(ship.getPos(), Vec2(100.0f * cosf(ship.getRotation()), -100.0f * sinf(ship.getRotation())));
+						break;
+					}
 				}
+				if (nLasers < maxLaser - 1) {
+
+					lasers[nLasers].Spawn(ship.getPos(), Vec2(100.0f * cosf(ship.getRotation()), -100.0f * sinf(ship.getRotation())));
+					nLasers++;
+				}
+
+
 			}
-			if (nLasers < maxLaser - 1) {
-
-				lasers[nLasers].Spawn(ship.getPos(), Vec2(100.0f * cosf(ship.getRotation()), -100.0f * sinf(ship.getRotation())));
-				nLasers++;
-			}		
-			
 		}
-
+		
 		const float dt = ft.Mark();
 		for (int i = 0; i < nAsteroids; i++) {
 			if (asteroids[i].GetIsDestroyed() == false) {
@@ -93,6 +102,7 @@ void Game::UpdateModel()
 						if (asteroids[i].CheckLaserCollision(lasers[j])) {
 							asteroids[i].SetIsDestroyed(true);
 							lasers[j].setIsUsed(false);
+							int a = 0;
 						}
 					}
 				}
@@ -120,6 +130,7 @@ void Game::UpdateModel()
 			{
 				lasers[i].Reset();
 			}
+			ft.Mark();
 		}
 	}
 	

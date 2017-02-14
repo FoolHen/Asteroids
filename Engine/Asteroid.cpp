@@ -14,7 +14,7 @@ void Asteroid::Spawn(std::mt19937 & rng, const Graphics & gfx, const Ship& ship)
 	std::uniform_int_distribution<int> nVertexDist(3, 12);
 	nVertex = nVertexDist(rng);
 
-	std::uniform_int_distribution<int> distanceDist(20, 40);
+	std::uniform_int_distribution<int> distanceDist(10, 40);
 	for (int i = 0; i < nVertex; i++) {
 		distances[i] = distanceDist(rng);
 		averageDistance += distances[i];
@@ -37,7 +37,6 @@ void Asteroid::Spawn(std::mt19937 & rng, const Graphics & gfx, const Ship& ship)
 
 	vel.x = float(vxDist(rng));
 	vel.y = float(vyDist(rng));
-
 }
 
 void Asteroid::Draw(Graphics & gfx) const

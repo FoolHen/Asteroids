@@ -43,12 +43,13 @@ private:
 	/********************************/
 private:
 	static constexpr int nAsteroids = 10;
-	static constexpr int maxLaser = 100;
+	static constexpr int maxLaser = 2;
 	int nLasers = 0;
 	MainWindow& wnd;
 	Graphics gfx;
 	Ship ship;
 	FrameTimer ft;
+	FrameTimer spaceBarCooldown;
 	Asteroid asteroids[nAsteroids];
 	Laser lasers[maxLaser];
 	std::mt19937 rng;
