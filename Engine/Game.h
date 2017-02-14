@@ -27,7 +27,6 @@
 #include "Asteroid.h"
 #include "FrameTimer.h"
 #include "Laser.h"
-#include "Menu.h"
 
 class Game
 {
@@ -56,7 +55,6 @@ private:
 	std::mt19937 rng;
 	bool isShipAcc = false;
 	bool gameOver = true;
-	Menu menu;
 	/********************************/
 	/*  User Variables              */
 	/********************************/

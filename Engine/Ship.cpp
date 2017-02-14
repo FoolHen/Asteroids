@@ -58,7 +58,7 @@ float Ship::getRotation() const
 
 void Ship::Accelerate()
 {
-	acc += Vec2( 10.0f * cosf(rotation), -10.0f * sinf(rotation) );
+	acc += Vec2( 15.0f * cosf(rotation), -15.0f * sinf(rotation) );
 }
 void Ship::Friction()
 {

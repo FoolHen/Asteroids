@@ -43,17 +43,19 @@ void Game::UpdateModel()
 {
 	if (!gameOver)
 	{
+		
 		if (wnd.kbd.KeyIsPressed(VK_UP)) 
 		{
 			ship.Accelerate();
 			isShipAcc = true;
 		}
-		else 
+		else
 		{
 			ship.setAcc(Vec2(0.0f, 0.0f));
 			isShipAcc = false;
 			ship.Friction();
 		}
+		
 		if (wnd.kbd.KeyIsPressed(VK_RIGHT)) 
 		{
 			ship.Rotate(-0.1f);
@@ -64,20 +66,20 @@ void Game::UpdateModel()
 		}
 		if (wnd.kbd.KeyIsPressed(VK_SPACE)) 
 		{
-			if (spaceBarCooldown.HasTimePassed(0.1f))
+			if (spaceBarCooldown.HasTimePassed(0.2f))
 			{
 				spaceBarCooldown.Mark();
 				for (int i = 0; i < nLasers; i++)
 				{
 					if (!lasers[i].getIsUsed())
 					{
-						lasers[i].Spawn(ship.getPos(), Vec2(150.0f * cosf(ship.getRotation()), -150.0f * sinf(ship.getRotation())));
+						lasers[i].Spawn(ship.getPos(), Vec2(300.0f * cosf(ship.getRotation()), -300.0f * sinf(ship.getRotation())));
 						break;
 					}
 				}
 				if (nLasers < maxLaser - 1) {
 
-					lasers[nLasers].Spawn(ship.getPos(), Vec2(150.0f * cosf(ship.getRotation()), -150.0f * sinf(ship.getRotation())));
+					lasers[nLasers].Spawn(ship.getPos(), Vec2(300.0f * cosf(ship.getRotation()), -300.0f * sinf(ship.getRotation())));
 					nLasers++;
 				}
 

@@ -8,6 +8,7 @@
 void Asteroid::Spawn(std::mt19937 & rng, const Graphics & gfx, const Ship& ship)
 	
 {
+	isDestroyed = false;
 	pos = Vec2(0.0f, 0.0f);
 	vel = Vec2(0.0f,0.0f);
 
@@ -41,9 +42,6 @@ void Asteroid::Spawn(std::mt19937 & rng, const Graphics & gfx, const Ship& ship)
 
 void Asteroid::Draw(Graphics & gfx) const
 {
-
-	//gfx.PutPixel(int(pos.x), int(pos.y), Colors::Magenta);
-
 	const float c = 2 * M_PI / float(nVertex);
 	int i;
 	for (i = 1; i < nVertex; ++i)

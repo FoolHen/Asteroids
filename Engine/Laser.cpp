@@ -32,7 +32,7 @@ void Laser::Update(float dt, const Graphics & gfx)
 	else if (pos.y >= height) {
 		pos.y -= height;
 	}
-	if (ft.HasTimePassed(2.0f))
+	if (ft.HasTimePassed(1.2f))
 	{
 		isUsed = false;
 	}
