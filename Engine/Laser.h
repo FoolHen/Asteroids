@@ -12,6 +12,8 @@ public:
 	void Update(float dt, const Graphics& gfx);
 	void Reset();
 	bool getIsUsed();
+	void setIsUsed(bool in_isUsed);
+	Vec2 getPos() const;
 private:
 	const Color color = Colors::Blue;
 	Vec2 pos;

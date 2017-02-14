@@ -33,7 +33,7 @@ void Asteroid::Spawn(std::mt19937 & rng, const Graphics & gfx, const Ship& ship)
 	do {
 		pos.x = float(xDist(rng));
 		pos.y = float(yDist(rng));
-	} while (checkShipCollision(ship));
+	} while (CheckShipCollision(ship));
 
 	vel.x = float(vxDist(rng));
 	vel.y = float(vyDist(rng));
@@ -88,7 +88,7 @@ void Asteroid::Rotate()
 	}
 }
 
-bool Asteroid::checkShipCollision(const Ship& ship)
+bool Asteroid::CheckShipCollision(const Ship& ship)
 {
 
 	bool collision = false;
@@ -100,6 +100,24 @@ bool Asteroid::checkShipCollision(const Ship& ship)
 		collision = true;
 	}
 	return collision;
+}
+
+bool Asteroid::CheckLaserCollision(const Laser & laser)
+{
+	bool collision = false;
+	const Vec2 laser_pos = laser.getPos();
+	const float dist_sqr_x = abs((pos.x - laser_pos.x) * (pos.x - laser_pos.x));
+	const float dist_sqr_y = abs((pos.y - laser_pos.y) * (pos.y - laser_pos.y));
+	if (dist_sqr_x + dist_sqr_y < (averageDistance) * (averageDistance))
+	{
+		collision = true;
+	}
+	return collision;
+}
+
+void Asteroid::SetIsDestroyed(bool in_isDestroyed)
+{
+	isDestroyed = in_isDestroyed;
 }
 
 bool Asteroid::GetIsDestroyed() const

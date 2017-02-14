@@ -2,7 +2,7 @@
 
 void Laser::Spawn(const Vec2& in_pos, const Vec2& in_vel)
 {
-	isUsed = true;
+ 	isUsed = true;
 	pos.x = in_pos.x;
 	pos.y = in_pos.y;
 	vel.x = in_vel.x;
@@ -42,4 +42,14 @@ void Laser::Reset()
 bool Laser::getIsUsed()
 {
 	return isUsed;
+}
+
+void Laser::setIsUsed(bool in_isUsed)
+{
+	isUsed = in_isUsed;
+}
+
+Vec2 Laser::getPos() const
+{
+	return pos;
 }

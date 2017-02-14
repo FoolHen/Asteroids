@@ -59,7 +59,7 @@ void Game::UpdateModel()
 			ship.Rotate(0.1f);
 		}
 		if (wnd.kbd.KeyIsPressed(VK_SPACE)) {
-			
+		
 			for (int i = 0; i < nLasers; i++)
 			{
 				if ( !lasers[i].getIsUsed())
@@ -81,16 +81,30 @@ void Game::UpdateModel()
 			if (asteroids[i].GetIsDestroyed() == false) {
 				asteroids[i].Update(dt, gfx);
 				asteroids[i].Rotate();
-				if (asteroids[i].checkShipCollision(ship)) {
+				if (asteroids[i].CheckShipCollision(ship)) {
 					gameOver = true;
 					break;
+				}
+				for (int j = 0; j < nLasers; j++)
+				{
+					if (lasers[j].getIsUsed() )
+					{
+
+						if (asteroids[i].CheckLaserCollision(lasers[j])) {
+							asteroids[i].SetIsDestroyed(true);
+							lasers[j].setIsUsed(false);
+						}
+					}
 				}
 			}
 		}
 		ship.Update(dt, gfx);
 		for (int i = 0; i < nLasers; i++)
 		{
-			lasers[i].Update(dt, gfx);
+			if (lasers[i].getIsUsed() )
+			{
+				lasers[i].Update(dt, gfx);
+			}
 		}
 	}
 	else
@@ -127,7 +141,9 @@ void Game::ComposeFrame()
 		}
  		for (int j = 0; j < nLasers; j++)
 		{
-			lasers[j].Draw( gfx );
+			if (lasers[j].getIsUsed() ) {
+				lasers[j].Draw(gfx);
+			}
 		}
 		ship.Draw(gfx);
 	}

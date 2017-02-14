@@ -3,6 +3,7 @@
 #include "Vec2.h"
 #include "Graphics.h"
 #include "Ship.h"
+#include "Laser.h"
 #include <random>
 
 class Asteroid
@@ -13,7 +14,9 @@ public:
 	void Draw(Graphics& gfx) const;
 	void Update(float dt, const Graphics& gfx);
 	void Rotate();
-	bool checkShipCollision(const Ship& ship);
+	bool CheckShipCollision(const Ship& ship);
+	bool CheckLaserCollision(const Laser& laser);
+	void SetIsDestroyed(bool in_isDestroyed);
 	bool GetIsDestroyed() const;
 private:
 	static constexpr int maxVertex = 12;
