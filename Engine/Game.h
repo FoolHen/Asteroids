@@ -48,6 +48,7 @@ private:
 	FrameTimer ft;
 	Asteroid asteroids[nAsteroids];
 	std::mt19937 rng;
+	bool isShipAcc = false;
 	/********************************/
 	/*  User Variables              */
 	/********************************/

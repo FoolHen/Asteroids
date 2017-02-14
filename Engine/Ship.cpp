@@ -9,7 +9,6 @@ Ship::Ship(const Vec2& in_pos, const Vec2& in_vel, const Vec2& in_acc)
 	pos(in_pos),
 	vel(in_vel),
 	acc(in_acc)
-
 {
 }
 
@@ -38,7 +37,7 @@ void Ship::setAcc(Vec2 vec)
 
 void Ship::Accelerate()
 {
-	acc += Vec2( 300.0f * cosf(rotation), -300.0f * sinf(rotation) );
+	acc += Vec2( 10.0f * cosf(rotation), -10.0f * sinf(rotation) );
 }
 void Ship::Friction()
 {

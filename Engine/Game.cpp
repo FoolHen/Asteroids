@@ -44,11 +44,16 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	ship.setAcc(Vec2(0.0f, 0.0f));
-	ship.Friction();
+	
+	
 	if (wnd.kbd.KeyIsPressed(VK_UP)) {
 		ship.Accelerate();
-		ship.DrawPropulsion(gfx);
+		isShipAcc = true;
+	}
+	else {
+		ship.setAcc(Vec2(0.0f, 0.0f));
+		isShipAcc = false;
+		ship.Friction();
 	}
 	if (wnd.kbd.KeyIsPressed(VK_RIGHT)) {
 		ship.Rotate(-0.1f);
@@ -75,9 +80,11 @@ void Game::ComposeFrame()
 
 		if (asteroids[i].GetDestroyed() == false) {
 			asteroids[i].Draw(gfx);
-
+			if (isShipAcc)
+			{
+				ship.DrawPropulsion(gfx);
+			}
 		}
-		
 	}
 	ship.Draw(gfx);	
 }
