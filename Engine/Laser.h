@@ -18,5 +18,6 @@ private:
 	const Color color = Colors::White;
 	Vec2 pos;
 	Vec2 vel;
+	FrameTimer ft;
 	bool isUsed = false;
 };

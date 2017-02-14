@@ -27,6 +27,7 @@
 #include "Asteroid.h"
 #include "FrameTimer.h"
 #include "Laser.h"
+#include "Menu.h"
 
 class Game
 {
@@ -43,7 +44,7 @@ private:
 	/********************************/
 private:
 	static constexpr int nAsteroids = 10;
-	static constexpr int maxLaser = 2;
+	static constexpr int maxLaser = 50;
 	int nLasers = 0;
 	MainWindow& wnd;
 	Graphics gfx;
@@ -55,6 +56,7 @@ private:
 	std::mt19937 rng;
 	bool isShipAcc = false;
 	bool gameOver = true;
+	Menu menu;
 	/********************************/
 	/*  User Variables              */
 	/********************************/
