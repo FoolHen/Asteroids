@@ -2,6 +2,7 @@
 
 #include "Vec2.h"
 #include "Graphics.h"
+#include "FrameTimer.h"
 
 class Laser
 {
@@ -13,6 +14,7 @@ public:
 	void Reset();
 	bool getIsUsed();
 	void setIsUsed(bool in_isUsed);
+	
 	Vec2 getPos() const;
 private:
 	const Color color = Colors::White;

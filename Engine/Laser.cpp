@@ -7,6 +7,7 @@ void Laser::Spawn(const Vec2& in_pos, const Vec2& in_vel)
 	pos.y = in_pos.y;
 	vel.x = in_vel.x;
 	vel.y = in_vel.y;
+	ft.Mark();
 }
 
 void Laser::Draw( Graphics & gfx) const
@@ -31,7 +32,10 @@ void Laser::Update(float dt, const Graphics & gfx)
 	else if (pos.y >= height) {
 		pos.y -= height;
 	}
-
+	if (ft.HasTimePassed(2.0f))
+	{
+		isUsed = false;
+	}
 }
 
 void Laser::Reset()
