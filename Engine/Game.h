@@ -49,7 +49,7 @@ private:
 	Asteroid asteroids[nAsteroids];
 	std::mt19937 rng;
 	bool isShipAcc = false;
-	bool gameOver = false;
+	bool gameOver = true;
 	/********************************/
 	/*  User Variables              */
 	/********************************/

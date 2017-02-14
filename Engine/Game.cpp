@@ -29,10 +29,10 @@ Game::Game( MainWindow& wnd )
 	gfx( wnd ),
 	ship( Vec2( 200.0f, 300.0f), Vec2(0.0f,0.0f),Vec2(0.0f,0.0f))
 {
-	for (int i = 0; i < nAsteroids ; i++)
+	/*for (int i = 0; i < nAsteroids ; i++)
 	{
 		asteroids[i].Spawn( rng,gfx,ship);
-	}
+	}*/
 }
 
 void Game::Go()
@@ -78,21 +78,38 @@ void Game::UpdateModel()
 		}
 		ship.Update(dt, gfx);
 	}
+	else
+	{
+		if (wnd.kbd.KeyIsPressed(VK_RETURN)) {
+			gameOver = false;
+			ship.Reset(Vec2(200.0f, 300.0f), Vec2(0.0f, 0.0f), Vec2(0.0f, 0.0f));
+			for (int i = 0; i < nAsteroids; i++)
+			{
+				asteroids[i].Spawn(rng, gfx, ship);
+			}
+		}
+	}
 	
 }
 
 void Game::ComposeFrame()
 {
-	
-	for (int i = 0; i < nAsteroids; i++) {
+	if (!gameOver)
+	{
+		for (int i = 0; i < nAsteroids; i++) {
 
-		if (asteroids[i].GetDestroyed() == false) {
-			asteroids[i].Draw(gfx);
-			if (isShipAcc)
-			{
-				ship.DrawPropulsion(gfx);
+			if (asteroids[i].GetDestroyed() == false) {
+				asteroids[i].Draw(gfx);
+				if (isShipAcc)
+				{
+					ship.DrawPropulsion(gfx);
+				}
 			}
 		}
+		ship.Draw(gfx);
 	}
-	ship.Draw(gfx);	
+	else
+	{
+
+	}
 }

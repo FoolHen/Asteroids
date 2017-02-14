@@ -30,6 +30,16 @@ void Ship::DrawPropulsion(Graphics & gfx) const
 		pos.x + (size + 13.0f) * cosf(rotation + 1.1f*M_PI), pos.y - (size + 13.0f) * sinf(rotation + 1.1f*M_PI), propColor);
 }
 
+void Ship::Reset(const Vec2 & in_pos, const Vec2 & in_vel, const Vec2 & in_acc)
+{
+	pos.x = in_pos.x;
+	pos.y = in_pos.y;
+	vel.x = in_vel.x;
+	vel.y = in_vel.y;
+	acc.x = in_acc.x;
+	acc.y = in_acc.y;
+}
+
 void Ship::setAcc(Vec2 vec)
 {
 	acc.x = vec.x;

@@ -10,6 +10,7 @@ public:
 	Ship(const Vec2& in_pos, const Vec2& in_vel, const Vec2& in_acc);
 	void Draw(Graphics& gfx) const;
 	void DrawPropulsion(Graphics& gfx) const;
+	void Reset(const Vec2& in_pos, const Vec2& in_vel, const Vec2& in_acc);
 	void setAcc(Vec2 vec);
 	Vec2 getPos() const;
 	void Accelerate();
