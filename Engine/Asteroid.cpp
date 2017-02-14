@@ -90,18 +90,19 @@ void Asteroid::Rotate()
 
 bool Asteroid::checkShipCollision(const Ship& ship)
 {
+
 	bool collision = false;
 	const Vec2 ship_pos = ship.getPos();
 	const float dist_sqr_x = abs( (pos.x - ship_pos.x) * (pos.x - ship_pos.x) );
 	const float dist_sqr_y = abs( (pos.y - ship_pos.y) * (pos.y - ship_pos.y) );
-	if ( dist_sqr_x + dist_sqr_y < (15.0f + averageDistance) * (15.0f + averageDistance))
+	if ( dist_sqr_x + dist_sqr_y < (8.0f + averageDistance) * (8.0f + averageDistance))
 	{
 		collision = true;
 	}
 	return collision;
 }
 
-bool Asteroid::GetDestroyed() const
+bool Asteroid::GetIsDestroyed() const
 {
 	return isDestroyed;
 }

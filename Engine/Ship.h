@@ -13,6 +13,7 @@ public:
 	void Reset(const Vec2& in_pos, const Vec2& in_vel, const Vec2& in_acc);
 	void setAcc(Vec2 vec);
 	Vec2 getPos() const;
+	float getRotation() const;
 	void Accelerate();
 	void Friction();
 	void Update(float dt, const Graphics& gfx);
@@ -24,6 +25,6 @@ private:
 	Vec2 pos;
 	Vec2 vel;
 	Vec2 acc;
-	float size = 20.0f;
+	float size = 10.0f;
 };
 

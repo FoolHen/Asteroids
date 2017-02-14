@@ -51,6 +51,11 @@ Vec2 Ship::getPos() const
 	return pos;
 }
 
+float Ship::getRotation() const
+{
+	return rotation;
+}
+
 void Ship::Accelerate()
 {
 	acc += Vec2( 10.0f * cosf(rotation), -10.0f * sinf(rotation) );

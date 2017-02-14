@@ -14,7 +14,7 @@ public:
 	void Update(float dt, const Graphics& gfx);
 	void Rotate();
 	bool checkShipCollision(const Ship& ship);
-	bool GetDestroyed() const;
+	bool GetIsDestroyed() const;
 private:
 	static constexpr int maxVertex = 12;
 	const Color color = Colors::White;

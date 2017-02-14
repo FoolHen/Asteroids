@@ -26,6 +26,7 @@
 #include "Ship.h"
 #include "Asteroid.h"
 #include "FrameTimer.h"
+#include "Laser.h"
 
 class Game
 {
@@ -42,11 +43,14 @@ private:
 	/********************************/
 private:
 	static constexpr int nAsteroids = 10;
+	static constexpr int maxLaser = 100;
+	int nLasers = 0;
 	MainWindow& wnd;
 	Graphics gfx;
 	Ship ship;
 	FrameTimer ft;
 	Asteroid asteroids[nAsteroids];
+	Laser lasers[maxLaser];
 	std::mt19937 rng;
 	bool isShipAcc = false;
 	bool gameOver = true;
