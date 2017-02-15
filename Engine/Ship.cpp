@@ -58,7 +58,15 @@ float Ship::getRotation() const
 
 void Ship::Accelerate()
 {
-	acc += Vec2( 15.0f * cosf(rotation), -15.0f * sinf(rotation) );
+	if (acc.x*acc.x + acc.y*acc.y < 100000)
+	{
+		acc += Vec2(15.0f * cosf(rotation), -15.0f * sinf(rotation));
+	}
+	else
+	{
+		acc = Vec2(0.0f, 0.0f);
+	}
+	
 }
 void Ship::Friction()
 {
@@ -66,6 +74,7 @@ void Ship::Friction()
 }
 void Ship::Update(float dt, const Graphics& gfx)
 {
+	
 	vel += acc*dt;
 	pos += vel*dt;
 	float width = gfx.ScreenWidth;

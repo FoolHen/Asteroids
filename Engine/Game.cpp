@@ -60,7 +60,7 @@ void Game::UpdateModel()
 		{
 			ship.Rotate(-0.1f);
 		}
-		else if (wnd.kbd.KeyIsPressed(VK_LEFT)) 
+		if (wnd.kbd.KeyIsPressed(VK_LEFT)) 
 		{
 			ship.Rotate(0.1f);
 		}
