@@ -146,10 +146,7 @@ void Game::ComposeFrame()
 
 			if (asteroids[i].GetIsDestroyed() == false) {
 				asteroids[i].Draw(gfx);
-				if (isShipAcc)
-				{
-					ship.DrawPropulsion(gfx);
-				}
+				
 			}
 		}
  		for (int j = 0; j < nLasers; j++)
@@ -157,6 +154,10 @@ void Game::ComposeFrame()
 			if (lasers[j].getIsUsed() ) {
 				lasers[j].Draw(gfx);
 			}
+		}
+		if (isShipAcc)
+		{
+			ship.DrawPropulsion(gfx);
 		}
 		ship.Draw(gfx);
 	}
