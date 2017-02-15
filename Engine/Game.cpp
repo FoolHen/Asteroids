@@ -82,8 +82,6 @@ void Game::UpdateModel()
 					lasers[nLasers].Spawn(ship.getPos(), Vec2(300.0f * cosf(ship.getRotation()), -300.0f * sinf(ship.getRotation())));
 					nLasers++;
 				}
-
-
 			}
 		}
 		
