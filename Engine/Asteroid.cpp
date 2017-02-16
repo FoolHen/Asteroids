@@ -8,7 +8,6 @@
 void Asteroid::Spawn(std::mt19937 & rng, const Graphics & gfx, const Ship& ship)
 	
 {
-	isDestroyed = false;
 	pos = Vec2(0.0f, 0.0f);
 	vel = Vec2(0.0f,0.0f);
 
@@ -28,16 +27,16 @@ void Asteroid::Spawn(std::mt19937 & rng, const Graphics & gfx, const Ship& ship)
 	
 	std::uniform_int_distribution<int> xDist(100, gfx.ScreenWidth - 100);
 	std::uniform_int_distribution<int> yDist(100, gfx.ScreenHeight - 100);
-	std::uniform_int_distribution<int> vxDist(0, 100);
-	std::uniform_int_distribution<int> vyDist(0, 100);
+	std::uniform_real_distribution<float> vxDist(-120.0f, 120.0f);
+	std::uniform_real_distribution<float> vyDist(-120.0f, 100.0f);
 	
 	do {
 		pos.x = float(xDist(rng));
 		pos.y = float(yDist(rng));
-	} while (CheckShipCollision(ship));
+	} while (CheckSpawnCollision(ship, 60.0f));
 
-	vel.x = float(vxDist(rng));
-	vel.y = float(vyDist(rng));
+	vel.x = vxDist(rng);
+	vel.y = vyDist(rng);
 }
 
 void Asteroid::Draw(Graphics & gfx) const
@@ -85,24 +84,30 @@ void Asteroid::Rotate()
 	}
 }
 
-bool Asteroid::CheckShipCollision(const Ship& ship)
+bool Asteroid::CheckSpawnCollision(const Ship & ship, float margin)
 {
-
 	bool collision = false;
-	const Vec2 ship_pos = ship.getPos();
-	const float dist_sqr_x = abs( (pos.x - ship_pos.x) * (pos.x - ship_pos.x) );
-	const float dist_sqr_y = abs( (pos.y - ship_pos.y) * (pos.y - ship_pos.y) );
-	if ( dist_sqr_x + dist_sqr_y < (8.0f + averageDistance) * (8.0f + averageDistance))
+	const Vec2 ship_pos = ship.GetPos();
+	const float size = ship.GetSize();
+	const float dist_sqr_x = abs((pos.x - ship_pos.x) * (pos.x - ship_pos.x));
+	const float dist_sqr_y = abs((pos.y - ship_pos.y) * (pos.y - ship_pos.y));
+	if (dist_sqr_x + dist_sqr_y < (size + averageDistance + margin) * (size + averageDistance + margin))
 	{
 		collision = true;
 	}
 	return collision;
 }
 
+bool Asteroid::CheckShipCollision(const Ship& ship)
+{
+
+	return CheckSpawnCollision(ship, 0.0f);
+}
+
 bool Asteroid::CheckLaserCollision(const Laser & laser)
 {
 	bool collision = false;
-	const Vec2 laser_pos = laser.getPos();
+	const Vec2 laser_pos = laser.GetPos();
 	const float dist_sqr_x = abs((pos.x - laser_pos.x) * (pos.x - laser_pos.x));
 	const float dist_sqr_y = abs((pos.y - laser_pos.y) * (pos.y - laser_pos.y));
 	if (dist_sqr_x + dist_sqr_y < (averageDistance) * (averageDistance))
@@ -112,12 +117,3 @@ bool Asteroid::CheckLaserCollision(const Laser & laser)
 	return collision;
 }
 
-void Asteroid::SetIsDestroyed(bool in_isDestroyed)
-{
-	isDestroyed = in_isDestroyed;
-}
-
-bool Asteroid::GetIsDestroyed() const
-{
-	return isDestroyed;
-}

@@ -43,17 +43,17 @@ void Laser::Reset()
 	isUsed = false;
 }
 
-bool Laser::getIsUsed()
+bool Laser::GetIsUsed()
 {
 	return isUsed;
 }
 
-void Laser::setIsUsed(bool in_isUsed)
+void Laser::SetIsUsed(bool in_isUsed)
 {
 	isUsed = in_isUsed;
 }
 
-Vec2 Laser::getPos() const
+Vec2 Laser::GetPos() const
 {
 	return pos;
 }

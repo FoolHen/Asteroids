@@ -39,20 +39,25 @@ void Ship::Reset(const Vec2 & in_pos, const Vec2 & in_vel, const Vec2 & in_acc)
 	acc.y = in_acc.y;
 }
 
-void Ship::setAcc(Vec2 vec)
+void Ship::SetAcc(Vec2 vec)
 {
 	acc.x = vec.x;
 	acc.y = vec.y;
 }
 
-Vec2 Ship::getPos() const
+Vec2 Ship::GetPos() const
 {
 	return pos;
 }
 
-float Ship::getRotation() const
+float Ship::GetRotation() const
 {
 	return rotation;
+}
+
+float Ship::GetSize() const
+{
+	return size;
 }
 
 void Ship::Accelerate()

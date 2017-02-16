@@ -51,7 +51,7 @@ void Game::UpdateModel()
 		}
 		else
 		{
-			ship.setAcc(Vec2(0.0f, 0.0f));
+			ship.SetAcc(Vec2(0.0f, 0.0f));
 			isShipAcc = false;
 			ship.Friction();
 		}
@@ -71,15 +71,18 @@ void Game::UpdateModel()
 				spaceBarCooldown.Mark();
 				for (int i = 0; i < nLasers; i++)
 				{
-					if (!lasers[i].getIsUsed())
+					if (!lasers[i].GetIsUsed())
 					{
-						lasers[i].Spawn(ship.getPos(), Vec2(300.0f * cosf(ship.getRotation()), -300.0f * sinf(ship.getRotation())));
+						const float size = ship.GetSize();
+						const float rotation = ship.GetRotation();
+						lasers[i].Spawn(ship.GetPos() += Vec2(size*cosf(rotation), -size*sinf(rotation)),
+							Vec2(300.0f * cosf(ship.GetRotation()), -300.0f * sinf(ship.GetRotation())));
 						break;
 					}
 				}
 				if (nLasers < maxLaser - 1) {
 
-					lasers[nLasers].Spawn(ship.getPos(), Vec2(300.0f * cosf(ship.getRotation()), -300.0f * sinf(ship.getRotation())));
+					lasers[nLasers].Spawn(ship.GetPos(), Vec2(300.0f * cosf(ship.GetRotation()), -300.0f * sinf(ship.GetRotation())));
 					nLasers++;
 				}
 			}
@@ -87,31 +90,30 @@ void Game::UpdateModel()
 		
 		const float dt = ft.Mark();
 		for (int i = 0; i < nAsteroids; i++) {
-			if (asteroids[i].GetIsDestroyed() == false) {
-				asteroids[i].Update(dt, gfx);
-				asteroids[i].Rotate();
-				if (asteroids[i].CheckShipCollision(ship)) {
-					gameOver = true;
-					break;
-				}
-				for (int j = 0; j < nLasers; j++)
+			asteroids[i].Update(dt, gfx);
+			asteroids[i].Rotate();
+			if (asteroids[i].CheckShipCollision(ship)) 
+			{
+				gameOver = true;
+				break;
+			}
+			for (int j = 0; j < nLasers; j++)
+			{
+				if (lasers[j].GetIsUsed() )
 				{
-					if (lasers[j].getIsUsed() )
+					if (asteroids[i].CheckLaserCollision(lasers[j])) 
 					{
-
-						if (asteroids[i].CheckLaserCollision(lasers[j])) {
-							asteroids[i].SetIsDestroyed(true);
-							lasers[j].setIsUsed(false);
-							int a = 0;
-						}
+						asteroids[i].Spawn( rng, gfx, ship);
+						lasers[j].SetIsUsed(false);
 					}
 				}
 			}
+			
 		}
-		ship.Update(dt, gfx);
+		ship.Update( dt, gfx);
 		for (int i = 0; i < nLasers; i++)
 		{
-			if (lasers[i].getIsUsed() )
+			if (lasers[i].GetIsUsed() )
 			{
 				lasers[i].Update(dt, gfx);
 			}
@@ -140,16 +142,14 @@ void Game::ComposeFrame()
 {
 	if (!gameOver)
 	{
-		for (int i = 0; i < nAsteroids; i++) {
-
-			if (asteroids[i].GetIsDestroyed() == false) {
-				asteroids[i].Draw(gfx);
-				
-			}
+		for (int i = 0; i < nAsteroids; i++) 
+		{
+			asteroids[i].Draw(gfx);
 		}
  		for (int j = 0; j < nLasers; j++)
 		{
-			if (lasers[j].getIsUsed() ) {
+			if (lasers[j].GetIsUsed() ) 
+			{
 				lasers[j].Draw(gfx);
 			}
 		}

@@ -11,9 +11,10 @@ public:
 	void Draw(Graphics& gfx) const;
 	void DrawPropulsion(Graphics& gfx) const;
 	void Reset(const Vec2& in_pos, const Vec2& in_vel, const Vec2& in_acc);
-	void setAcc(Vec2 vec);
-	Vec2 getPos() const;
-	float getRotation() const;
+	void SetAcc(Vec2 vec);
+	Vec2 GetPos() const;
+	float GetRotation() const;
+	float GetSize() const;
 	void Accelerate();
 	void Friction();
 	void Update(float dt, const Graphics& gfx);
