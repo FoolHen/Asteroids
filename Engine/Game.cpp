@@ -68,21 +68,26 @@ void Game::UpdateModel()
 		{
 			if (spaceBarCooldown.HasTimePassed(0.2f))
 			{
+				const float size = ship.GetSize();
+				const float rotation = ship.GetRotation();
 				spaceBarCooldown.Mark();
+				bool recycledLaser = false;
 				for (int i = 0; i < nLasers; i++)
 				{
 					if (!lasers[i].GetIsUsed())
 					{
-						const float size = ship.GetSize();
-						const float rotation = ship.GetRotation();
+
 						lasers[i].Spawn(ship.GetPos() += Vec2(size*cosf(rotation), -size*sinf(rotation)),
 							Vec2(300.0f * cosf(ship.GetRotation()), -300.0f * sinf(ship.GetRotation())));
+						recycledLaser = true;
 						break;
 					}
 				}
-				if (nLasers < maxLaser - 1) {
 
-					lasers[nLasers].Spawn(ship.GetPos(), Vec2(300.0f * cosf(ship.GetRotation()), -300.0f * sinf(ship.GetRotation())));
+				if (nLasers < maxLaser - 1 && !recycledLaser) {
+
+					lasers[nLasers].Spawn(ship.GetPos() += Vec2(size*cosf(rotation), -size*sinf(rotation)),
+						Vec2(300.0f * cosf(ship.GetRotation()), -300.0f * sinf(ship.GetRotation())));
 					nLasers++;
 				}
 			}
@@ -103,8 +108,8 @@ void Game::UpdateModel()
 				{
 					if (asteroids[i].CheckLaserCollision(lasers[j])) 
 					{
-						asteroids[i].Spawn( rng, gfx, ship);
 						lasers[j].SetIsUsed(false);
+						asteroids[i].Spawn( rng, gfx, ship);
 					}
 				}
 			}
