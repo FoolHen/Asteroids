@@ -20,7 +20,7 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
-#include "SpriteCodex.h"
+#include "Surface.h"
 
 Game::Game( MainWindow& wnd )
 	:
@@ -170,7 +170,10 @@ void Game::ComposeFrame()
 	}
 	else
 	{
-		SpriteCodex::DrawTitle(200, 200, gfx);
-		SpriteCodex::DrawInfo(100, gfx.ScreenHeight - 100, gfx);
+		static const Surface infoImage = Surface::FromFile(L"info.png");
+		gfx.DrawSpriteKey(100, gfx.ScreenHeight - 100, infoImage, infoImage.GetPixel(0, 0));
+
+		static const Surface titleImage = Surface::FromFile(L"title.png");
+		gfx.DrawSpriteKey(200, 200, titleImage, titleImage.GetPixel(0, 0));
 	}
 }

@@ -23,6 +23,8 @@
 #include <wrl.h>
 #include "ChiliException.h"
 #include "Colors.h"
+#include "Surface.h"
+#include "GDIPlusManager.h"
 
 class Graphics
 {
@@ -68,7 +70,10 @@ public:
 	void DrawTriangle(float x0, float y0, float x1, float y1, float x2, float y2, Color c);
 	~Graphics();
 	void Graphics::DrawCircle(int x, int y, int r, Color c);
+	void DrawSprite(int x, int y, const Surface& src);
+	void DrawSpriteKey(int x, int y, const Surface& src, Color key);
 private:
+	GDIPlusManager										gdipManager;
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;
 	Microsoft::WRL::ComPtr<ID3D11Device>				pDevice;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext>			pImmediateContext;

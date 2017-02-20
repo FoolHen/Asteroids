@@ -88,7 +88,7 @@ bool Asteroid::CheckSpawnCollision(const Ship & ship, float margin)
 {
 	bool collision = false;
 	const Vec2 ship_pos = ship.GetPos();
-	const float size = ship.GetSize();
+	const float size = 0.5f * ship.GetSize();
 	const float dist_sqr_x = abs((pos.x - ship_pos.x) * (pos.x - ship_pos.x));
 	const float dist_sqr_y = abs((pos.y - ship_pos.y) * (pos.y - ship_pos.y));
 	if (dist_sqr_x + dist_sqr_y < (size + averageDistance + margin) * (size + averageDistance + margin))
