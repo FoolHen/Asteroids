@@ -33,7 +33,7 @@ void Asteroid::Spawn(std::mt19937 & rng, const Graphics & gfx, const Ship& ship)
 	do {
 		pos.x = float(xDist(rng));
 		pos.y = float(yDist(rng));
-	} while (CheckSpawnCollision(ship, 60.0f));
+	} while (CheckSpawnCollision(ship, 150.0f));
 
 	vel.x = vxDist(rng);
 	vel.y = vyDist(rng);

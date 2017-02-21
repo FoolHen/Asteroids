@@ -16,6 +16,9 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{8b6c92a8-f65d-451e-80e3-d65773602b92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Media">
+      <UniqueIdentifier>{e5fd09a5-2949-486c-8133-dd7f1be8457b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChiliWin.h">
@@ -69,6 +72,12 @@
     <ClInclude Include="..\..\Spaceballs\Engine\Surface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundEffect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">
@@ -113,6 +122,9 @@
     <ClCompile Include="..\..\Spaceballs\Engine\Surface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">
@@ -131,5 +143,19 @@
     <Image Include="Chili.ico">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Audio\coin.wav">
+      <Filter>Media</Filter>
+    </Media>
+    <Media Include="Audio\explosion.wav">
+      <Filter>Media</Filter>
+    </Media>
+    <Media Include="Audio\laser.wav">
+      <Filter>Media</Filter>
+    </Media>
+    <Media Include="collision.wav">
+      <Filter>Media</Filter>
+    </Media>
   </ItemGroup>
 </Project>

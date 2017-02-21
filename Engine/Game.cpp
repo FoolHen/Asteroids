@@ -26,7 +26,11 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	ship( Vec2( 200.0f, 300.0f), Vec2(0.0f,0.0f),Vec2(0.0f,0.0f))
+	ship( Vec2( 200.0f, 300.0f), Vec2(0.0f,0.0f),Vec2(0.0f,0.0f)),
+	laserSound( L"laser.wav"),
+	explosionSound( L"explosion.wav"),
+	collisionSound( L"collision.wav"),
+	coinSound( L"coin.wav")
 {
 }
 
@@ -89,6 +93,7 @@ void Game::UpdateModel()
 						Vec2(300.0f * cosf(ship.GetRotation()), -300.0f * sinf(ship.GetRotation())));
 					nLasers++;
 				}
+				laserSound.Play();
 			}
 		}
 		
@@ -99,6 +104,7 @@ void Game::UpdateModel()
 			if (asteroids[i].CheckShipCollision(ship)) 
 			{
 				gameOver = true;
+				collisionSound.Play();
 				break;
 			}
 			for (int j = 0; j < nLasers; j++)
@@ -108,7 +114,9 @@ void Game::UpdateModel()
 					if (asteroids[i].CheckLaserCollision(lasers[j])) 
 					{
 						lasers[j].SetIsUsed(false);
+						score++;
 						asteroids[i].Spawn( rng, gfx, ship);
+						explosionSound.Play();
 					}
 				}
 			}
@@ -127,6 +135,7 @@ void Game::UpdateModel()
 	{
 		if (wnd.kbd.KeyIsPressed(VK_RETURN)) {
 			gameOver = false;
+			score = 0;
 			ship.Reset(Vec2(200.0f, 300.0f), Vec2(0.0f, 0.0f), Vec2(0.0f, 0.0f));
 			for (int i = 0; i < nAsteroids; i++)
 			{
