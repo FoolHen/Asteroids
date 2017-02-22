@@ -28,29 +28,7 @@ void TextSurface::DrawString( const std::wstring & string,const Vec2& pt,const F
 		Gdiplus::PointF( pt.x,pt.y ),&textBrush );
 }
 
-void TextSurface::DrawString( const std::wstring & string,const RectF & rect,const Font & font,Color c,Alignment a )
-{
-	Gdiplus::StringFormat format;
-	switch( a )
-	{
-	case Alignment::Left:
-		format.SetAlignment( Gdiplus::StringAlignmentNear );
-		break;
-	case Alignment::Right:
-		format.SetAlignment( Gdiplus::StringAlignmentFar );
-		break;
-	case Alignment::Center:
-	default:
-		format.SetAlignment( Gdiplus::StringAlignmentCenter );
-		break;
-	}
-	Gdiplus::Color textColor( c.GetR(),c.GetG(),c.GetB() );
-	Gdiplus::SolidBrush textBrush( textColor );
-	pGfx->DrawString( string.c_str(),-1,font,
-		Gdiplus::RectF( rect.left,rect.top,rect.GetWidth(),rect.GetHeight() ),
-		&format,
-		&textBrush );
-}
+
 
 TextSurface::~TextSurface()
 {}

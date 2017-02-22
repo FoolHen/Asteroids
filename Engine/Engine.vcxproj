@@ -146,7 +146,6 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="FrameTimer.h" />
     <ClInclude Include="Laser.h" />
-    <ClInclude Include="Rect.h" />
     <ClInclude Include="Ship.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="MainWindow.h" />

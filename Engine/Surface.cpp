@@ -22,6 +22,7 @@
 #include "ChiliWin.h"
 #include "Surface.h"
 #include "ChiliException.h"
+#include <algorithm>
 namespace Gdiplus
 {
 	using std::min;

@@ -2,7 +2,6 @@
 
 #include "Surface.h"
 #include "Vec2.h"
-#include "Rect.h"
 #include <memory>
 
 namespace Gdiplus
@@ -35,8 +34,6 @@ public:
 public:
 	TextSurface( unsigned int width,unsigned int height );
 	void DrawString( const std::wstring& string,const Vec2& pt,const Font& font,Color c );
-	void DrawString( const std::wstring& string,const RectF& rect,const Font& font,
-		Color c = Colors::White,Alignment a = Alignment::Center );
 	~TextSurface();
 	TextSurface( const TextSurface& ) = delete;
 	TextSurface( TextSurface&& ) = delete;
