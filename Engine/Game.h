@@ -44,7 +44,7 @@ private:
 	/********************************/
 private:
 	static constexpr int nAsteroids = 10;
-	static constexpr int maxLaser = 50;
+	static constexpr int maxLaser = 20;
 	int nLasers = 0;
 	int score = 0;
 	MainWindow& wnd;
@@ -61,6 +61,7 @@ private:
 	Sound explosionSound;
 	Sound collisionSound;
 	Sound coinSound;
+	std::wstring scoreString;
 	/********************************/
 	/*  User Variables              */
 	/********************************/

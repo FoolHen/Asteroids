@@ -187,7 +187,7 @@ void Game::ComposeFrame()
 
 	}
 
-	const TextSurface::Font fontus(L"Hyperspace Negrita", 20.0f);
-	std::wstring string = ("Score: ", std::to_wstring(score));
-	gfx.DrawText(string, { 20.0f,20.0f }, fontus, Colors::White);
+	const TextSurface::Font fontus(L"Hyperspace Negrita", 15.0f);
+	scoreString = L"Score: " + std::to_wstring(score);
+	gfx.DrawText(scoreString, { 15.0f,15.0f }, fontus, Colors::White);
 }
