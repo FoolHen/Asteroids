@@ -23,6 +23,7 @@
 #include <wrl.h>
 #include "ChiliException.h"
 #include "Colors.h"
+#include "TextSurface.h"
 #include "Surface.h"
 #include "GDIPlusManager.h"
 
@@ -72,6 +73,7 @@ public:
 	void Graphics::DrawCircle(int x, int y, int r, Color c);
 	void DrawSprite(int x, int y, const Surface& src);
 	void DrawSpriteKey(int x, int y, const Surface& src, Color key);
+	void DrawText(const std::wstring& string, const Vec2& pt, const TextSurface::Font& font, Color c);
 private:
 	GDIPlusManager										gdipManager;
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;
@@ -86,7 +88,7 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11InputLayout>			pInputLayout;
 	Microsoft::WRL::ComPtr<ID3D11SamplerState>			pSamplerState;
 	D3D11_MAPPED_SUBRESOURCE							mappedSysBufferTexture;
-	Color*                                              pSysBuffer = nullptr;
+	TextSurface                                         pSysBuffer;
 public:
 	static constexpr int ScreenWidth = 800;
 	static constexpr int ScreenHeight = 600;

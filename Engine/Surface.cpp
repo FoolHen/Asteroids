@@ -22,7 +22,6 @@
 #include "ChiliWin.h"
 #include "Surface.h"
 #include "ChiliException.h"
-#include <algorithm>
 namespace Gdiplus
 {
 	using std::min;
@@ -82,7 +81,7 @@ Surface Surface::FromFile( const std::wstring & name )
 		}
 	}
 
-	return Surface( width,height,std::move( pBuffer ) );
+	return Surface( width,height,pitch,std::move( pBuffer ) );
 }
 
 void Surface::Save( const std::wstring & filename ) const
@@ -131,7 +130,7 @@ void Surface::Save( const std::wstring & filename ) const
 
 	CLSID bmpID;
 	GetEncoderClsid( L"image/bmp",&bmpID );
-	Gdiplus::Bitmap bitmap( width,height,width * sizeof( Color ),PixelFormat32bppARGB,(BYTE*)pBuffer.get() );
+	Gdiplus::Bitmap bitmap( width,height,pitch * sizeof( Color ),PixelFormat32bppARGB,(BYTE*)pBuffer.get() );
 	if( bitmap.Save( filename.c_str(),&bmpID,nullptr ) != Gdiplus::Status::Ok )
 	{
 		std::wstringstream ss;
@@ -144,5 +143,15 @@ void Surface::Copy( const Surface & src )
 {
 	assert( width == src.width );
 	assert( height == src.height );
-	memcpy( GetBufferPtr(),src.GetBufferPtrConst(),width * height * sizeof( Color ) );
+	if( pitch == src.pitch )
+	{
+		memcpy( pBuffer.get(),src.pBuffer.get(),pitch * height * sizeof( Color ) );
+	}
+	else
+	{
+		for( unsigned int y = 0; y < height; y++ )
+		{
+			memcpy( &pBuffer[pitch * y],&src.pBuffer[pitch * y],sizeof( Color )* width );
+		}
+	}
 }

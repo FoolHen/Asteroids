@@ -41,6 +41,7 @@ namespace FramebufferShaders
 using Microsoft::WRL::ComPtr;
 
 Graphics::Graphics( HWNDKey& key )
+	:pSysBuffer( Graphics::ScreenWidth, Graphics::ScreenHeight)
 {
 	assert( key.hWnd != nullptr );
 
@@ -234,13 +235,14 @@ Graphics::Graphics( HWNDKey& key )
 	{
 		throw CHILI_GFX_EXCEPTION( hr,L"Creating sampler state" );
 	}
-
+	/*
 	// allocate memory for sysbuffer (16-byte aligned for faster access)
 	pSysBuffer = reinterpret_cast<Color*>( 
 		_aligned_malloc( sizeof( Color ) * Graphics::ScreenWidth * Graphics::ScreenHeight,16u ) );
+	*/
 }
 
-Graphics::~Graphics()
+/*Graphics::~Graphics()
 {
 	// free sysbuffer memory (aligned free)
 	if( pSysBuffer )
@@ -250,9 +252,16 @@ Graphics::~Graphics()
 	}
 	// clear the state of the device context before destruction
 	if( pImmediateContext ) pImmediateContext->ClearState();
+}*/
+
+
+Graphics::~Graphics()
+{
+	// clear the state of the device context before destruction
+	if (pImmediateContext) pImmediateContext->ClearState();
 }
 
-void Graphics::EndFrame()
+/*void Graphics::EndFrame()
 {
 	HRESULT hr;
 
@@ -299,29 +308,74 @@ void Graphics::EndFrame()
 			throw CHILI_GFX_EXCEPTION( hr,L"Presenting back buffer" );
 		}
 	}
+}*/
+void Graphics::EndFrame()
+{
+	HRESULT hr;
+
+	// lock and map the adapter memory for copying over the sysbuffer
+	if (FAILED(hr = pImmediateContext->Map(pSysBufferTexture.Get(), 0u,
+		D3D11_MAP_WRITE_DISCARD, 0u, &mappedSysBufferTexture)))
+	{
+		throw CHILI_GFX_EXCEPTION(hr, L"Mapping sysbuffer");
+	}
+	// setup parameters for copy operation
+	BYTE* pDst = reinterpret_cast<BYTE*>(mappedSysBufferTexture.pData);
+	const size_t dstPitch = mappedSysBufferTexture.RowPitch;
+	const size_t srcPitch = Graphics::ScreenWidth;
+	const size_t rowBytes = srcPitch * sizeof(Color);
+	// perform the copy line-by-line
+	pSysBuffer.Present(dstPitch, pDst);
+	// release the adapter memory
+	pImmediateContext->Unmap(pSysBufferTexture.Get(), 0u);
+
+	// render offscreen scene texture to back buffer
+	pImmediateContext->IASetInputLayout(pInputLayout.Get());
+	pImmediateContext->VSSetShader(pVertexShader.Get(), nullptr, 0u);
+	pImmediateContext->PSSetShader(pPixelShader.Get(), nullptr, 0u);
+	pImmediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	const UINT stride = sizeof(FSQVertex);
+	const UINT offset = 0u;
+	pImmediateContext->IASetVertexBuffers(0u, 1u, pVertexBuffer.GetAddressOf(), &stride, &offset);
+	pImmediateContext->PSSetShaderResources(0u, 1u, pSysBufferTextureView.GetAddressOf());
+	pImmediateContext->PSSetSamplers(0u, 1u, pSamplerState.GetAddressOf());
+	pImmediateContext->Draw(6u, 0u);
+
+	// flip back/front buffers
+	if (FAILED(hr = pSwapChain->Present(1u, 0u)))
+	{
+		throw CHILI_GFX_EXCEPTION(hr, L"Presenting back buffer");
+	}
 }
 
 void Graphics::BeginFrame()
 {
 	// clear the sysbuffer
-	memset( pSysBuffer,0u,sizeof( Color ) * Graphics::ScreenHeight * Graphics::ScreenWidth );
+	
+	//memset( pSysBuffer,0u,sizeof( Color ) * Graphics::ScreenHeight * Graphics::ScreenWidth );
+	pSysBuffer.Clear(Colors::Black);
 }
 
 void Graphics::PutPixel( int x,int y,Color c )
 {
 	if (x < 0) {
-		x = (int)Graphics::ScreenWidth - 1 + x;
+		x = (int)ScreenWidth - 1 + x;
 	}
-	else if (x >= (int)Graphics::ScreenWidth) {
-		x -= (int)Graphics::ScreenWidth;
+	else if (x >= (int)ScreenWidth) {
+		x -= (int)ScreenWidth;
 	}
 	if (y < 0) {
-		y = (int)Graphics::ScreenHeight - 1 + y;
+		y = (int)ScreenHeight - 1 + y;
 	}
-	else if (y >= (int)Graphics::ScreenHeight) {
-		y -= (int)Graphics::ScreenHeight;
+	else if (y >= (int)ScreenHeight) {
+		y -= (int)ScreenHeight;
 	}
-	pSysBuffer[Graphics::ScreenWidth * y + x] = c;
+	//pSysBuffer[Graphics::ScreenWidth * y + x] = c;
+	assert(x >= 0);
+	assert(y >= 0);
+	assert(x < ScreenWidth);
+	assert(y < ScreenHeight);
+	pSysBuffer.PutPixel(x, y, c);
 }
 
 void Graphics::DrawLine( float x1,float y1,float x2,float y2,Color c )
@@ -531,6 +585,11 @@ void Graphics::DrawSpriteKey(int x, int y, const Surface & src, Color key)
 			}
 		}
 	}
+}
+
+void Graphics::DrawText(const std::wstring & string, const Vec2 & pt, const TextSurface::Font & font, Color c)
+{
+	pSysBuffer.DrawString(string, pt, font, c);
 }
 
 

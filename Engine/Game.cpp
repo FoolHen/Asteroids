@@ -184,5 +184,8 @@ void Game::ComposeFrame()
 
 		static const Surface titleImage = Surface::FromFile(L"title.png");
 		gfx.DrawSpriteKey(200, 200, titleImage, titleImage.GetPixel(0, 0));
+
+		const TextSurface::Font fontus(L"Consolas", 20.0f);
+		gfx.DrawText(L"dixdixdix", { 20.0f,20.0f }, fontus, Colors::Blue);
 	}
 }

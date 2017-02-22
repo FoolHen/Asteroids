@@ -137,7 +137,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Spaceballs\Engine\GDIPlusManager.h" />
-    <ClInclude Include="..\..\Spaceballs\Engine\Surface.h" />
     <ClInclude Include="Asteroid.h" />
     <ClInclude Include="ChiliException.h" />
     <ClInclude Include="ChiliWin.h" />
@@ -147,6 +146,7 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="FrameTimer.h" />
     <ClInclude Include="Laser.h" />
+    <ClInclude Include="Rect.h" />
     <ClInclude Include="Ship.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="MainWindow.h" />
@@ -154,11 +154,12 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundEffect.h" />
+    <ClInclude Include="Surface.h" />
+    <ClInclude Include="TextSurface.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Spaceballs\Engine\GDIPlusManager.cpp" />
-    <ClCompile Include="..\..\Spaceballs\Engine\Surface.cpp" />
     <ClCompile Include="Asteroid.cpp" />
     <ClCompile Include="DXErr.cpp" />
     <ClCompile Include="FrameTimer.cpp" />
@@ -171,6 +172,8 @@
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="Surface.cpp" />
+    <ClCompile Include="TextSurface.cpp" />
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
