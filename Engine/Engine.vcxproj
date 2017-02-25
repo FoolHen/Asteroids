@@ -248,6 +248,7 @@
     <Media Include="Audio\explosion.wav" />
     <Media Include="Audio\laser.wav" />
     <Media Include="collision.wav" />
+    <Media Include="music.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

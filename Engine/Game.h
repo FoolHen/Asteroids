@@ -59,8 +59,9 @@ private:
 	bool gameOver = true;
 	Sound laserSound;
 	Sound explosionSound;
-	Sound collisionSound;
+	Sound gameoverSound;
 	Sound coinSound;
+	Sound music;
 	std::wstring scoreString;
 	/********************************/
 	/*  User Variables              */

@@ -29,8 +29,9 @@ Game::Game( MainWindow& wnd )
 	ship( Vec2( 200.0f, 300.0f), Vec2(0.0f,0.0f),Vec2(0.0f,0.0f)),
 	laserSound( L"laser.wav"),
 	explosionSound( L"explosion.wav"),
-	collisionSound( L"collision.wav"),
-	coinSound( L"coin.wav")
+	gameoverSound( L"collision.wav"),
+	coinSound( L"coin.wav"),
+	music( L"music.wav",0.0f, 6.0f) //6.857142f
 {
 }
 
@@ -104,7 +105,8 @@ void Game::UpdateModel()
 			if (asteroids[i].CheckShipCollision(ship)) 
 			{
 				gameOver = true;
-				collisionSound.Play();
+				gameoverSound.Play();
+				music.StopAll();
 				break;
 			}
 			for (int j = 0; j < nLasers; j++)
@@ -117,6 +119,7 @@ void Game::UpdateModel()
 						score++;
 						asteroids[i].Spawn( rng, gfx, ship);
 						explosionSound.Play();
+						coinSound.Play(1.0f,0.5f);
 					}
 				}
 			}
@@ -136,6 +139,7 @@ void Game::UpdateModel()
 		if (wnd.kbd.KeyIsPressed(VK_RETURN)) {
 			gameOver = false;
 			score = 0;
+			music.Play();
 			ship.Reset(Vec2(200.0f, 300.0f), Vec2(0.0f, 0.0f), Vec2(0.0f, 0.0f));
 			for (int i = 0; i < nAsteroids; i++)
 			{
@@ -186,8 +190,7 @@ void Game::ComposeFrame()
 		gfx.DrawSpriteKey(200, 200, titleImage, titleImage.GetPixel(0, 0));
 
 	}
-
-	const TextSurface::Font fontus(L"Hyperspace Negrita", 15.0f);
+	const TextSurface::Font font(L"Terminal", 14.0f);
 	scoreString = L"Score: " + std::to_wstring(score);
-	gfx.DrawText(scoreString, { 15.0f,15.0f }, fontus, Colors::White);
+	gfx.DrawText(scoreString, { 15.0f,15.0f }, font, Colors::White);
 }
