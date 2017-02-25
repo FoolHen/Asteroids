@@ -54,6 +54,7 @@ private:
 	FrameTimer spaceBarCooldown;
 	Asteroid asteroids[nAsteroids];
 	Laser lasers[maxLaser];
+	std::random_device rd;
 	std::mt19937 rng;
 	bool isShipAcc = false;
 	bool gameOver = true;

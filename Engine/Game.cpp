@@ -31,7 +31,8 @@ Game::Game( MainWindow& wnd )
 	explosionSound( L"explosion.wav"),
 	gameoverSound( L"collision.wav"),
 	coinSound( L"coin.wav"),
-	music( L"music.wav",0.0f, 6.0f) //6.857142f
+	music( L"music.wav",0.0f, 6.0f), //6.857142f is the end of the file, but it makes a weird loop
+	rng( rd() )
 {
 }
 
@@ -117,7 +118,7 @@ void Game::UpdateModel()
 					{
 						lasers[j].SetIsUsed(false);
 						score++;
-						asteroids[i].Spawn( rng, gfx, ship);
+						asteroids[i].Spawn( rng , gfx, ship);
 						explosionSound.Play();
 						coinSound.Play(1.0f,0.5f);
 					}
